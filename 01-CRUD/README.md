@@ -175,7 +175,7 @@ db.moviesScratch.insertMany(
 ---
 
 # ObjectId
-[objectid](.images/objectId.jpg)
+![objectid](.images/objectId.jpg)
 
 O ObjectId, tem em sí uma regra muito eficaz de manter a unicidade de um documento, ele é composto por por 12 bytes descritos em base hexadecimal.
 

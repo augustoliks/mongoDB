@@ -1,4 +1,8 @@
-# CREATE
+# CRUD
+
+---
+
+## CREATE
 ---
 
 >* **Observação:** Antes de começar a estudar os comandod e inserção, vamos estudar um pouco sobre a Estrutura de um documento em mongoDB:
@@ -8,13 +12,16 @@
 
 Há diversas maneiras de se criar uma coleção no mongoDB, abordaremos de momento as principais:
 
-* insertOne
-* insertMany
+COMANDO		|	DESCRIÇÃO
+----------------|----------------
+insertOne	|	Insere apenas um documento
+insertMany	|	Insere vários documentos de uma vez
 
 
-## insertOne
-* O comando **insertOne** faz a inserção de apenas um documento por chamada, segue o exemplo abordando a explicação da *Estrutura de um documento em mongoDB*
+### insertOne
+* O comando ```insertOne``` faz a inserção de apenas um documento por chamada, segue o exemplo abordando a explicação da *Estrutura de um documento em mongoDB*
 
+>> Inserindo um documento
 ```
 db.sites.insertOne( 
     { 
@@ -23,31 +30,30 @@ db.sites.insertOne(
 )
 ```
  
+>> Inserindo um documento, sobrescrevendo ID
 ```
-
 db.sites.insertOne( 
     { 
         "_id" : "valor_qualquer", 
         "name" : "facebook" 
     } 
 )
-
 ```
 
+>> Inserindo outro documento, com o mesmo ```name : "facebook```, neste caso, quando não se sobrescreve o ID, é inserido outro documento com os mesmos valores. **Não é permitido dois documentos com mesmo ID**. 
 ```
-
 db.sites.insertOne( 
     { 
         "name" : "facebook" 
     } 
 )
-
 ```
 
-* db.sites.find().pretty()
-
+>> Visualizando os documentos de maneira organizada com ```.find().pretty()```
 ```
+[IN] >>> db.sites.find().pretty()
 
+[OUT]>>>
 {   
     "_id" : ObjectId("5b79c40518fa765e4f661323"), 
     "name" : "facebook" 
@@ -60,12 +66,11 @@ db.sites.insertOne(
     "_id" : ObjectId("5b79c44218fa765e4f661324"), 
     "name" : "facebook" 
 }
-
 ```
 
 ---
 
-## insertMany: 
+### insertMany: 
 * insertMany é usado quando há necessidade de inserir vários documentos de uma vez.
 * Para inserir os documentos, os mesmos devem estar contidos em um array.
 * Há duas maneiras de se inserir os documentos:
@@ -74,8 +79,7 @@ db.sites.insertOne(
 
 >> **Desordenada:** Insere os documentos de maneira desordenada,  caso encontre um identificador duplicado, é ignorado a sua inserção, e as inserções prosseguem (insere todos o elementos, menos os com o _id e insere apenas um dos elementos que tem o _id repetido).
 
->* Observação: Para declarar que as inserções serão feitas de maneira desordenada, há de declarar a chamada da função desta forma: 
-
+>> Para declarar que as inserções serão feitas de maneira desordenada, há de declarar a chamada da função desta forma: 
 ```
 db.moviesScratch.insertMany(
     [ 
@@ -89,8 +93,8 @@ db.moviesScratch.insertMany(
 ```
 
 ## Exemplo prático do insertMany Ordenado
-No exemplo abaixo, será salvo apenas os dois primeiros elementos, uma vez que o terceiro elemento tem o _id igual do terceiro elemento ("_id" : "tt0084726")
 
+>> No exemplo abaixo, será salvo apenas os dois primeiros elementos, uma vez que o terceiro elemento tem o _id igual do terceiro elemento ("_id" : "tt0084726")
 ```
 db.moviesScratch.insertMany(
     [
@@ -130,8 +134,8 @@ db.moviesScratch.insertMany(
 ```
 
 ## Exemplo prático do insertMany Desordenado
-Neste exemplo, será inserido todos os documentos, menos o terceiro elemento que detém o _id igual do primeiro elemento ("_id" : "tt0084726")
 
+>> Neste exemplo, será inserido todos os documentos, menos o terceiro elemento que detém o _id igual do primeiro elemento ("_id" : "tt0084726")
 ```
 db.moviesScratch.insertMany(
     [
@@ -188,6 +192,7 @@ O ObjectId, tem em sí uma regra muito eficaz de manter a unicidade de um docume
 * O 10º, 11º, e 12º byte, é a representação de um contador/diferenciador de documentos, que atendem todas as três regras anteriores descritas.
 
 --- 
+
 # READ
 
 Iremos ver as pesquisas de **igualdade/equivalência** envolvendo:
